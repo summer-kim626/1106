@@ -1,0 +1,8 @@
+{
+  "name": "참가 신청서",
+  "description": "참가 신청 및 관리 페이지",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

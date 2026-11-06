@@ -1,0 +1,1061 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>참가 신청서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#E9EDF1; --sheet:#FFFFFF; --ink:#1D2B3A; --ink-soft:#56667A;
+  --rule:#C3CCD6; --field:#F6F8FA; --focus:#2F5D8A; --stamp:#C2362B; --ok:#2E6B4F;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#151B22; --sheet:#1E2630; --ink:#E4E9EF; --ink-soft:#9AA8B8;
+    --rule:#3A4654; --field:#18202A; --focus:#7FAEDC; --stamp:#E0584C; --ok:#6FBF97;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#151B22; --sheet:#1E2630; --ink:#E4E9EF; --ink-soft:#9AA8B8;
+  --rule:#3A4654; --field:#18202A; --focus:#7FAEDC; --stamp:#E0584C; --ok:#6FBF97;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  font-size:1rem; line-height:1.6;
+}
+main{max-width:44rem; margin:0 auto; padding:2.5rem 1.25rem 4rem}
+main[hidden]{display:none}
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+.sheet{
+  position:relative; background:var(--sheet); border:1px solid var(--rule);
+  padding:2.5rem 2rem 2rem;
+}
+.sheet::before{ /* double-rule frame of an official form */
+  content:""; position:absolute; inset:.5rem; border:1px solid var(--rule); pointer-events:none;
+}
+h1{
+  font-family:"Gowun Batang","Nanum Myeongjo",serif; font-weight:700;
+  font-size:clamp(2rem,6vw,2.75rem); letter-spacing:.5em; margin:0 0 .25rem;
+  text-align:center; padding-left:.5em;
+}
+.intro{color:var(--ink-soft); text-align:center; margin:0 0 2rem; font-size:.95rem}
+.notice{
+  border-left:3px solid var(--focus); background:var(--field); padding:.75rem 1rem;
+  margin:0 0 1.5rem; font-size:.95rem
+}
+.notice[hidden]{display:none}
+.notice.warn{border-color:var(--stamp)}
+table.form{width:100%; border-collapse:collapse; border-top:2px solid var(--ink)}
+.form th,.form td{border-bottom:1px solid var(--rule); padding:.85rem .75rem; vertical-align:top; text-align:left}
+.form th{width:9rem; font-weight:600; font-size:.95rem; background:var(--field); padding-top:1.15rem}
+.form th .req{color:var(--stamp); margin-left:.15rem}
+.req{color:var(--stamp); margin-left:.15rem}
+input[type=text],input[type=email],input[type=tel],input[type=search],input[type=password],select,textarea{
+  width:100%; font:inherit; color:var(--ink); background:var(--sheet);
+  border:1px solid var(--rule); border-radius:2px; padding:.55rem .65rem;
+}
+textarea{min-height:8rem; resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible,a:focus-visible{
+  outline:2px solid var(--focus); outline-offset:2px
+}
+.hint{font-size:.85rem; color:var(--ink-soft); margin:.35rem 0 0}
+.err{font-size:.85rem; color:var(--stamp); margin:.35rem 0 0}
+.err:empty{display:none}
+.choices{display:flex; flex-wrap:wrap; gap:.5rem 1.25rem}
+.choices label{display:flex; align-items:center; gap:.4rem; cursor:pointer}
+.consent{margin:1.5rem 0 0; display:flex; gap:.6rem; align-items:flex-start; font-size:.95rem}
+.consent input{margin-top:.35rem}
+.foot{
+  margin-top:2rem; display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; flex-wrap:wrap
+}
+.date{font-family:"Gowun Batang",serif; color:var(--ink-soft)}
+button{
+  font:inherit; font-weight:600; cursor:pointer; border-radius:2px;
+  background:var(--ink); color:var(--sheet); border:1px solid var(--ink); padding:.7rem 1.6rem;
+}
+button:disabled{opacity:.45; cursor:not-allowed}
+button.ghost{background:transparent; color:var(--ink)}
+.status{font-size:.9rem; color:var(--ink-soft); min-height:1.4em; margin:.75rem 0 0; text-align:right}
+.status.good{color:var(--ok)} .status.bad{color:var(--stamp)}
+.viewlink{margin:1.25rem 0 0; text-align:center; font-size:.85rem; color:var(--ink-soft)}
+.viewlink a{color:inherit}
+
+/* 팝업 안내 */
+.popup{
+  position:fixed; left:50%; top:calc(1rem + env(safe-area-inset-top,0px)); transform:translateX(-50%);
+  z-index:1000; max-width:calc(100vw - 2rem); padding:.8rem 1.25rem;
+  background:var(--ink); color:var(--sheet); border-left:4px solid var(--stamp);
+  border-radius:2px; font-weight:500; box-shadow:0 6px 24px rgba(0,0,0,.25); cursor:pointer;
+  animation:pop .18s ease-out both;
+}
+.popup.ok{border-left-color:var(--ok)}
+.popup[hidden]{display:none}
+@keyframes pop{from{opacity:0; transform:translate(-50%,-8px)}to{opacity:1; transform:translate(-50%,0)}}
+@media (prefers-reduced-motion:reduce){ .popup{animation:none} }
+
+/* the stamp: the one moment of motion */
+.stamp{
+  position:absolute; right:2.25rem; top:1.75rem; width:6.5rem; height:6.5rem;
+  border:3px solid var(--stamp); border-radius:50%; color:var(--stamp);
+  display:grid; place-items:center; text-align:center;
+  font-family:"Gowun Batang",serif; font-weight:700; line-height:1.15;
+  transform:rotate(-14deg); opacity:0; pointer-events:none;
+}
+.stamp b{font-size:1.6rem; letter-spacing:.15em; padding-left:.15em; display:block}
+.stamp small{font-size:.7rem; font-weight:400}
+.stamp.on{opacity:.88}
+.stamp.press{animation:press .45s cubic-bezier(.2,.9,.3,1.2) both}
+@keyframes press{
+  0%{opacity:0; transform:rotate(-14deg) scale(1.8)}
+  60%{opacity:.95; transform:rotate(-14deg) scale(.94)}
+  100%{opacity:.88; transform:rotate(-14deg) scale(1)}
+}
+@media (prefers-reduced-motion:reduce){ .stamp.press{animation:none} }
+
+@media (max-width:560px){
+  main{padding:1.5rem .75rem 3rem}
+  .sheet{padding:2rem 1.1rem 1.5rem}
+  .form th,.form td{display:block; width:100%; border-bottom:none}
+  .form th{padding:.75rem .5rem .35rem; background:transparent}
+  .form td{padding:0 .5rem .9rem; border-bottom:1px solid var(--rule)}
+  .stamp{width:5rem; height:5rem; right:1rem; top:1rem}
+  .stamp b{font-size:1.2rem}
+}
+
+/* 관리자 비밀번호 확인 */
+.gate{max-width:26rem; margin:2rem auto 0}
+.gate .intro{margin-bottom:1.5rem}
+.gate label{display:block; font-weight:600; font-size:.95rem; margin-bottom:.3rem}
+.gate button[type=submit]{width:100%; margin-top:1rem}
+
+/* =========================================================
+   관리자 화면 (#admin) — .adm 아래로만 적용해 신청서 화면과 분리
+   ========================================================= */
+main.adm{max-width:72rem}
+.adm .top{display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; flex-wrap:wrap; margin-bottom:1.5rem}
+.adm .eyebrow{margin:0; font-size:.75rem; letter-spacing:.2em; color:var(--stamp); font-weight:600}
+.adm h1{font-size:2rem; letter-spacing:normal; text-align:left; padding-left:0; margin:.1rem 0 .25rem}
+.adm .sub{margin:0; color:var(--ink-soft); font-size:.92rem}
+.adm .back{display:inline-block; margin-top:.35rem; font-size:.88rem; color:var(--ink-soft)}
+.adm .top-actions{display:flex; gap:.5rem; align-items:center}
+
+.adm button{padding:.55rem 1.1rem}
+.adm button.ghost{background:transparent; color:var(--ink); border-color:var(--rule)}
+.adm button.ghost:not(:disabled):hover{border-color:var(--ink)}
+.adm button.danger{background:transparent; color:var(--stamp); border-color:var(--stamp)}
+.adm button.danger.solid{background:var(--stamp); color:#fff}
+.adm button.mini{padding:.2rem .55rem; font-size:.84rem; font-weight:500}
+
+.adm .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:.75rem; margin-bottom:1.25rem}
+.adm button.stat{
+  text-align:left; background:var(--sheet); color:var(--ink); border:1px solid var(--rule);
+  padding:.85rem 1rem; display:block; width:100%; font-weight:500;
+}
+.adm .stat b{display:block; font-family:"Gowun Batang",serif; font-size:1.75rem; line-height:1.1}
+.adm .stat span{font-size:.85rem; color:var(--ink-soft)}
+.adm button.stat[aria-pressed="true"]{border-color:var(--ink); box-shadow:inset 0 -3px 0 var(--ink)}
+@media (max-width:640px){ .adm .stats{grid-template-columns:repeat(2,1fr)} }
+
+.adm .toolbar{display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:.75rem}
+.adm .toolbar .search{flex:1 1 16rem}
+.adm .toolbar select{width:auto}
+.adm .selbar{
+  display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;
+  background:var(--field); border:1px solid var(--rule); border-left:3px solid var(--focus);
+  padding:.5rem .75rem; margin-bottom:.75rem; font-size:.92rem;
+}
+.adm .selbar[hidden]{display:none}
+.adm .selbar .grow{flex:1}
+
+.adm .scroll{overflow-x:auto; border:1px solid var(--rule); background:var(--sheet)}
+.adm table.list{border-collapse:collapse; width:100%; min-width:58rem; font-size:.92rem}
+.adm .list th,.adm .list td{padding:.6rem .75rem; border-bottom:1px solid var(--rule); text-align:left; vertical-align:top}
+.adm .list thead th{background:var(--field); font-weight:600; white-space:nowrap; border-top:2px solid var(--ink)}
+.adm .list tbody tr:hover td{background:var(--field)}
+.adm .list tr.sel td{background:color-mix(in srgb,var(--focus) 10%,var(--sheet))}
+.adm .list .chk{width:2.5rem; text-align:center}
+.adm .list td.nowrap{white-space:nowrap}
+.adm .list td.motive{max-width:20rem}
+.adm .list td.motive div{
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  overflow-wrap:anywhere; white-space:pre-wrap;
+}
+.adm .list td.act{white-space:nowrap}
+.adm .list td.act button+button{margin-left:.3rem}
+.adm .tag{display:inline-block; font-size:.8rem; padding:.05rem .5rem; border:1px solid var(--rule); border-radius:999px; white-space:nowrap}
+.adm .empty{padding:2.5rem 1rem; text-align:center !important; color:var(--ink-soft)}
+
+.adm .pager{display:flex; justify-content:space-between; align-items:center; gap:.75rem; flex-wrap:wrap; margin-top:.75rem; font-size:.9rem; color:var(--ink-soft)}
+.adm .pager .ctrl{display:flex; align-items:center; gap:.5rem}
+.adm .pager select{width:auto; padding:.3rem .5rem}
+
+dialog.adm{
+  border:1px solid var(--rule); background:var(--sheet); color:var(--ink); padding:1.5rem;
+  width:min(36rem,calc(100vw - 1.5rem)); max-height:calc(100dvh - 2rem); overflow:auto;
+  box-shadow:0 12px 40px rgba(0,0,0,.3);
+}
+dialog.adm::backdrop{background:rgba(10,16,24,.5)}
+.adm h2{font-family:"Gowun Batang",serif; font-size:1.4rem; margin:0 0 .25rem}
+.adm .meta{margin:0 0 1rem; color:var(--ink-soft); font-size:.88rem; min-height:1.2em}
+.adm .field{margin:0 0 .9rem}
+.adm .field>label,.adm .field>.lbl{display:block; font-weight:600; font-size:.92rem; margin-bottom:.25rem}
+.adm .field .choices label{font-weight:400}
+.adm .choices.col{flex-direction:column; gap:.6rem}
+.adm .choices.col label{align-items:flex-start}
+.adm .choices.col input{margin-top:.3rem}
+.adm .choices.col small{display:block; color:var(--ink-soft)}
+.adm .grid2{display:grid; grid-template-columns:1fr 1fr; gap:0 .9rem}
+@media (max-width:560px){ .adm .grid2{grid-template-columns:1fr} }
+.adm .agree{display:flex; gap:.55rem; align-items:flex-start; font-size:.92rem}
+.adm .agree input{margin-top:.35rem}
+.adm .dlg-foot{display:flex; justify-content:flex-end; gap:.5rem; margin-top:1.25rem}
+</style>
+</head>
+<body>
+<div class="popup" id="popup" role="status" aria-live="polite" hidden></div>
+
+<!-- ================= 신청서 화면 ================= -->
+<main id="applyView">
+  <div class="sheet">
+    <div class="stamp" id="stamp" aria-hidden="true"><div><b>접수</b><small id="stampDate"></small></div></div>
+    <h1>참가 신청서</h1>
+    <p class="intro">아래 항목을 작성해 제출하면 이 브라우저에 신청이 임시 저장됩니다.</p>
+
+    <p class="notice" id="notice" hidden></p>
+
+    <form id="form" novalidate>
+      <table class="form">
+        <tr>
+          <th scope="row"><label for="name">이름</label><span class="req" aria-hidden="true">*</span></th>
+          <td><input type="text" id="name" name="name" autocomplete="name" required>
+            <p class="hint">한글·영문만, 최대 10글자 (숫자·공백 불가)</p>
+            <p class="err" id="err-name"></p></td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="email">이메일</label><span class="req" aria-hidden="true">*</span></th>
+          <td><input type="email" id="email" name="email" autocomplete="email" required maxlength="120">
+            <p class="err" id="err-email"></p></td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="phone">연락처</label></th>
+          <td><input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="numeric" placeholder="010-0000-0000" maxlength="13">
+            <p class="hint">010으로 시작하는 숫자 11자리만 가능해요. 하이픈(-)은 자동으로 들어가요.</p>
+            <p class="err" id="err-phone"></p></td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="org">소속</label></th>
+          <td><input type="text" id="org" name="org" autocomplete="organization">
+            <p class="hint">회사, 학교, 팀 이름 등 · 한글·영문·숫자·공백, 최대 50글자</p>
+            <p class="err" id="err-org"></p></td>
+        </tr>
+        <tr>
+          <th scope="row"><span id="session-label">참가 일정</span><span class="req" aria-hidden="true">*</span></th>
+          <td>
+            <div class="choices" role="radiogroup" aria-labelledby="session-label">
+              <label><input type="radio" name="session" value="평일 저녁"> 평일 저녁</label>
+              <label><input type="radio" name="session" value="토요일 오전"> 토요일 오전</label>
+              <label><input type="radio" name="session" value="토요일 오후"> 토요일 오후</label>
+            </div>
+            <p class="err" id="err-session"></p>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row"><label for="motive">신청 동기</label><span class="req" aria-hidden="true">*</span></th>
+          <td><textarea id="motive" name="motive" maxlength="1000" required></textarea>
+            <p class="hint"><span id="count">0</span> / 1000자</p>
+            <p class="err" id="err-motive"></p></td>
+        </tr>
+      </table>
+
+      <label class="consent">
+        <input type="checkbox" id="agree" name="agree">
+        <span>신청 확인과 안내 연락을 위해 위 개인정보를 수집·이용하는 데 동의합니다.<span class="req" aria-hidden="true">*</span></span>
+      </label>
+      <p class="err" id="err-agree"></p>
+
+      <div class="foot">
+        <span class="date" id="today"></span>
+        <button type="submit" id="submit">신청서 제출</button>
+      </div>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+  <p class="viewlink"><a href="#admin">관리자</a></p>
+</main>
+
+<!-- ================= 관리자 비밀번호 확인 ================= -->
+<main id="gateView" hidden>
+  <div class="sheet gate">
+    <h1>관리자</h1>
+    <p class="intro">관리자 비밀번호를 입력해 주세요.</p>
+    <form id="gateForm" novalidate>
+      <label for="gatePw">비밀번호</label>
+      <input type="password" id="gatePw" autocomplete="current-password">
+      <p class="err" id="gateErr" role="alert"></p>
+      <button type="submit" id="gateBtn">입장</button>
+    </form>
+    <p class="viewlink"><a href="#apply">← 신청서 화면으로</a></p>
+  </div>
+</main>
+
+<!-- ================= 관리자 화면 ================= -->
+<main id="adminView" class="adm" hidden>
+  <header class="top">
+    <div>
+      <p class="eyebrow">ADMIN</p>
+      <h1>신청 관리</h1>
+      <p class="sub">이 브라우저에 저장된 참가 신청 데이터를 조회·등록·수정·삭제합니다.</p>
+      <p class="sub">개인정보 보호를 위해 목록의 이름·연락처는 일부가 가려져 표시됩니다. (수정 화면에는 원본이 표시되고, CSV는 내려받을 때 마스킹 여부를 선택합니다)</p>
+      <a class="back" href="#apply">← 신청서 화면으로</a>
+    </div>
+    <div class="top-actions"><button type="button" class="ghost" id="btnLogout">로그아웃</button><button type="button" id="btnNew">+ 신규 등록</button></div>
+  </header>
+
+  <p class="notice warn" id="adminNotice" hidden></p>
+
+  <section class="stats" id="stats" aria-label="일정별 현황"></section>
+
+  <section class="toolbar" aria-label="조회 조건">
+    <label class="search"><span class="sr">검색</span>
+      <input type="search" id="q" placeholder="이름·이메일·연락처·소속·신청 동기 검색" autocomplete="off"></label>
+    <label><span class="sr">일정 필터</span>
+      <select id="fSession">
+        <option value="">전체 일정</option>
+        <option>평일 저녁</option><option>토요일 오전</option><option>토요일 오후</option>
+      </select></label>
+    <label><span class="sr">정렬</span>
+      <select id="fSort">
+        <option value="new">접수 최신순</option>
+        <option value="old">접수 오래된순</option>
+        <option value="name">이름순</option>
+        <option value="session">일정순</option>
+      </select></label>
+    <button type="button" class="ghost" id="btnCsv">CSV 내려받기</button>
+  </section>
+
+  <div class="selbar" id="selbar" hidden>
+    <span id="selText"></span><span class="grow"></span>
+    <button type="button" class="ghost mini" id="selClear">선택 해제</button>
+    <button type="button" class="danger mini" id="selDelete">선택 삭제</button>
+  </div>
+
+  <div class="scroll">
+    <table class="list">
+      <thead><tr>
+        <th class="chk"><input type="checkbox" id="selAll" aria-label="조회 결과 전체 선택"></th>
+        <th>접수일시</th><th>이름</th><th>이메일</th><th>연락처</th><th>소속</th><th>일정</th><th>신청 동기</th><th>관리</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <nav class="pager" aria-label="페이지">
+    <span id="pgInfo"></span>
+    <div class="ctrl">
+      <label><span class="sr">페이지당 개수</span>
+        <select id="pgSize"><option value="10">10개씩</option><option value="20">20개씩</option><option value="50">50개씩</option></select></label>
+      <button type="button" class="ghost mini" id="pgPrev">이전</button>
+      <span id="pgNow"></span>
+      <button type="button" class="ghost mini" id="pgNext">다음</button>
+    </div>
+  </nav>
+</main>
+
+<!-- 관리자: 등록/수정 -->
+<dialog id="editor" class="adm" aria-labelledby="edTitle">
+  <form id="edForm" novalidate>
+    <h2 id="edTitle">신청 등록</h2>
+    <p class="meta" id="edMeta"></p>
+
+    <div class="grid2">
+      <div class="field">
+        <label for="f-name">이름<span class="req" aria-hidden="true">*</span></label>
+        <input type="text" id="f-name" name="name" autocomplete="off">
+        <p class="hint">한글·영문만, 최대 10글자</p>
+        <p class="err" id="aerr-name"></p>
+      </div>
+      <div class="field">
+        <label for="f-email">이메일<span class="req" aria-hidden="true">*</span></label>
+        <input type="email" id="f-email" name="email" autocomplete="off" maxlength="120">
+        <p class="err" id="aerr-email"></p>
+      </div>
+      <div class="field">
+        <label for="f-phone">연락처</label>
+        <input type="tel" id="f-phone" name="phone" autocomplete="off" inputmode="numeric" placeholder="010-0000-0000" maxlength="13">
+        <p class="hint">010으로 시작하는 숫자 11자리</p>
+        <p class="err" id="aerr-phone"></p>
+      </div>
+      <div class="field">
+        <label for="f-org">소속</label>
+        <input type="text" id="f-org" name="org" autocomplete="off">
+        <p class="hint">한글·영문·숫자·공백, 최대 50글자</p>
+        <p class="err" id="aerr-org"></p>
+      </div>
+    </div>
+
+    <div class="field">
+      <span class="lbl" id="a-session-label">참가 일정<span class="req" aria-hidden="true">*</span></span>
+      <div class="choices" role="radiogroup" aria-labelledby="a-session-label">
+        <label><input type="radio" name="session" value="평일 저녁"> 평일 저녁</label>
+        <label><input type="radio" name="session" value="토요일 오전"> 토요일 오전</label>
+        <label><input type="radio" name="session" value="토요일 오후"> 토요일 오후</label>
+      </div>
+      <p class="err" id="aerr-session"></p>
+    </div>
+
+    <div class="field">
+      <label for="f-motive">신청 동기<span class="req" aria-hidden="true">*</span></label>
+      <textarea id="f-motive" name="motive" maxlength="1000"></textarea>
+      <p class="hint"><span id="acount">0</span> / 1000자 (최소 10자)</p>
+      <p class="err" id="aerr-motive"></p>
+    </div>
+
+    <label class="agree">
+      <input type="checkbox" id="f-agree" name="agree">
+      <span>신청자의 개인정보 수집·이용 동의를 확인했습니다.<span class="req" aria-hidden="true">*</span></span>
+    </label>
+    <p class="err" id="aerr-agree"></p>
+
+    <div class="dlg-foot">
+      <button type="button" class="ghost" id="edCancel">취소</button>
+      <button type="submit" id="edSave">저장</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- 관리자: 삭제 확인 -->
+<dialog id="confirm" class="adm" aria-labelledby="cfTitle">
+  <form method="dialog">
+    <h2 id="cfTitle">삭제할까요?</h2>
+    <p id="cfMsg"></p>
+    <div class="dlg-foot">
+      <button value="cancel" class="ghost">취소</button>
+      <button value="ok" class="danger solid" id="cfOk">삭제</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- 관리자: CSV 내려받기 옵션 -->
+<dialog id="csvDlg" class="adm" aria-labelledby="csvTitle">
+  <form id="csvForm" novalidate>
+    <h2 id="csvTitle">CSV 내려받기</h2>
+    <p class="meta" id="csvMeta"></p>
+    <div class="field">
+      <span class="lbl" id="csv-lbl">개인정보 표시 방식</span>
+      <div class="choices col" role="radiogroup" aria-labelledby="csv-lbl">
+        <label><input type="radio" name="csvMask" value="masked" checked>
+          <span>마스킹하여 저장<small>이름 김**, 연락처 010-****-5678 형태로 저장</small></span></label>
+        <label><input type="radio" name="csvMask" value="raw">
+          <span>원본 그대로 저장<small>실제 이름·연락처가 그대로 들어갑니다. 보관·전달에 주의하세요.</small></span></label>
+      </div>
+    </div>
+    <div class="dlg-foot">
+      <button type="button" class="ghost" id="csvCancel">취소</button>
+      <button type="submit" id="csvOk">내려받기</button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const KEY = "participant-applications:v1";
+  const SESSIONS = ["평일 저녁", "토요일 오전", "토요일 오후"];
+  const FIELDS = ["name", "email", "phone", "org", "session", "motive", "agree"];
+  const MSG = {
+    nameMax: "최대 10글자 입니다",
+    orgMax: "최대 50글자 입니다",
+    emailBad: "올바른 이메일로 작성해주세요",
+    emailDup: "이미 가입된 이메일입니다",
+    phoneBad: "전화번호를 올바르게 입력해주세요",
+    phoneDup: "이미 가입된 전화번호입니다"
+  };
+
+  /* =====================================================
+     공통: 저장소 · 유틸 · 팝업 · 입력 필터 · 검증 규칙
+     ===================================================== */
+  let memoryStore = [], useMemory = false;   // localStorage를 못 쓸 때의 대체 저장소 (탭을 닫으면 사라짐)
+  function probeStorage(){
+    try { const t = KEY + ":probe"; localStorage.setItem(t, "1"); localStorage.removeItem(t); return true; }
+    catch (_) { return false; }
+  }
+  function loadAll(){
+    if (useMemory) return memoryStore.slice();
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (!raw) return [];
+      const arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr.filter(r => r && r.id) : [];
+    } catch (_) { return []; }   // 저장된 JSON이 깨진 경우 빈 목록으로 시작
+  }
+  function saveAll(list){
+    if (useMemory){ memoryStore = list.slice(); return; }
+    localStorage.setItem(KEY, JSON.stringify(list));   // 용량 초과 시 예외를 호출부로 전달
+  }
+  const newId = () =>
+    (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+  const isQuota = e => e && (e.name === "QuotaExceededError" || e.code === 22 || e.code === 1014);
+
+  const pad = n => String(n).padStart(2, "0");
+  const fmtDate = ms => { const d = new Date(ms); return d.getFullYear() + "년 " + (d.getMonth()+1) + "월 " + d.getDate() + "일"; };
+  const fmtDateTime = ms => {
+    if (!ms) return "";
+    const d = new Date(ms);
+    return d.getFullYear() + "." + pad(d.getMonth()+1) + "." + pad(d.getDate()) + " " + pad(d.getHours()) + ":" + pad(d.getMinutes());
+  };
+
+  // 팝업. 모달(<dialog>)이 열려 있으면 그 안으로 옮겨서 가려지지 않게 한다.
+  const popupEl = $("popup"); let popupTimer = null;
+  function popup(msg, kind){
+    const host = document.querySelector("dialog[open]") || document.body;
+    if (popupEl.parentNode !== host) host.appendChild(popupEl);
+    popupEl.textContent = msg; popupEl.className = "popup" + (kind === "ok" ? " ok" : ""); popupEl.hidden = false;
+    clearTimeout(popupTimer);
+    popupTimer = setTimeout(() => { popupEl.hidden = true; }, 2600);
+  }
+  popupEl.addEventListener("click", () => { popupEl.hidden = true; clearTimeout(popupTimer); });
+
+  // 허용 문자만 남기고 최대 글자 수에서 자른다. 한글 IME 조합 중에는 건드리지 않는다.
+  function bindLimited(el, disallowed, max, overMsg){
+    let composing = false;
+    const apply = () => {
+      const pos = el.selectionStart == null ? el.value.length : el.selectionStart;
+      let v = el.value.replace(disallowed, "");
+      const over = v.length > max;
+      if (over) v = v.slice(0, max);
+      if (v !== el.value){
+        const p = Math.min(el.value.slice(0, pos).replace(disallowed, "").length, v.length);
+        el.value = v;
+        try { el.setSelectionRange(p, p); } catch (_) {}
+      }
+      if (over) popup(overMsg);
+    };
+    el.addEventListener("compositionstart", () => { composing = true; });
+    el.addEventListener("compositionend", () => { composing = false; apply(); });
+    el.addEventListener("input", e => { if (!composing && !e.isComposing) apply(); });
+  }
+  const NAME_BAD = /[^A-Za-z가-힣ㄱ-ㅎㅏ-ㅣ]/g;           // 이름: 영문·한글만 (숫자·공백 불가)
+  const ORG_BAD = /[^A-Za-z0-9가-힣ㄱ-ㅎㅏ-ㅣ ]/g;       // 소속: 영문·한글·숫자·공백
+
+  // 연락처: 숫자만 남기고 000-0000-0000 형식으로 하이픈 자동 추가 (최대 11자리, 010만 허용)
+  function formatPhone(v){
+    const d = v.replace(/\D/g, "").slice(0, 11);
+    if (d.length < 4) return d;
+    if (d.length < 8) return d.slice(0, 3) + "-" + d.slice(3);
+    return d.slice(0, 3) + "-" + d.slice(3, 7) + "-" + d.slice(7);
+  }
+  function bindPhone(el, errEl){
+    el.addEventListener("input", () => {
+      const pos = el.selectionStart == null ? el.value.length : el.selectionStart;
+      const digitsBefore = el.value.slice(0, pos).replace(/\D/g, "").length;
+      const f = formatPhone(el.value);
+      el.value = f;
+      let p = 0, c = 0;
+      while (p < f.length && c < digitsBefore){ if (/\d/.test(f[p])) c++; p++; }
+      try { el.setSelectionRange(p, p); } catch (_) {}
+      const digits = f.replace(/\D/g, "");
+      errEl.textContent = ""; el.removeAttribute("aria-invalid");
+      if (digits.length >= 3 && digits.slice(0, 3) !== "010"){   // 앞 3자리가 010이 아니면 즉시 안내
+        errEl.textContent = MSG.phoneBad; el.setAttribute("aria-invalid", "true");
+        popup(MSG.phoneBad);
+      }
+    });
+  }
+
+  // 검증 규칙 (신청서·관리자 폼 공통). others: 중복 검사 대상(자기 자신 제외한 기존 신청서)
+  function computeErrors(d, rawEmail, others, agreeMsg){
+    const emailBad = !d.email || /\s/.test(rawEmail) || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email);
+    const emailDup = !emailBad && others.some(r => String(r.email || "").toLowerCase() === d.email.toLowerCase());
+    const phoneBad = !!d.phone && !/^010-\d{4}-\d{4}$/.test(d.phone);
+    const phoneDup = !!d.phone && !phoneBad && others.some(r => r.phone === d.phone);
+    return {
+      name: !d.name ? "이름을 입력하세요."
+        : !/^[A-Za-z가-힣]+$/.test(d.name) ? "이름은 한글 또는 영문만 입력할 수 있어요."
+        : d.name.length > 10 ? MSG.nameMax : "",
+      email: emailBad ? MSG.emailBad : emailDup ? MSG.emailDup : "",
+      phone: phoneBad ? MSG.phoneBad : phoneDup ? MSG.phoneDup : "",
+      org: !/^[A-Za-z0-9가-힣 ]*$/.test(d.org) ? "소속은 한글·영문·숫자만 입력할 수 있어요."
+        : d.org.length > 50 ? MSG.orgMax : "",
+      session: d.session ? "" : "참가 일정을 하나 고르세요.",
+      motive: d.motive.length >= 10 ? "" : "신청 동기를 10자 이상 적어 주세요.",
+      agree: d.agree ? "" : agreeMsg
+    };
+  }
+  // 오류를 필드 아래에 표시하고, 폼 순서상 첫 오류는 팝업으로도 안내. 오류가 없으면 true.
+  function applyErrors(errs, errPrefix, elFor){
+    let first = null;
+    FIELDS.forEach(k => {
+      $(errPrefix + k).textContent = errs[k];
+      const el = elFor(k);
+      if (el) el.setAttribute("aria-invalid", errs[k] ? "true" : "false");
+      if (errs[k] && !first) first = el;
+    });
+    if (first){
+      first.focus();
+      const msg = FIELDS.map(k => errs[k]).find(Boolean);
+      if (msg) popup(msg);
+    }
+    return !first;
+  }
+  function clearErrors(errPrefix, elFor){
+    FIELDS.forEach(k => { $(errPrefix + k).textContent = ""; const el = elFor(k); if (el) el.removeAttribute("aria-invalid"); });
+  }
+
+  /* =====================================================
+     신청서 화면
+     ===================================================== */
+  const form = $("form"), submitBtn = $("submit"), statusEl = $("status"), notice = $("notice"), stamp = $("stamp");
+  const formEl = k => k === "session" ? form.querySelector('input[name="session"]') : $(k);
+
+  $("today").textContent = fmtDate(Date.now());
+  $("motive").addEventListener("input", e => { $("count").textContent = e.target.value.length; });
+  bindLimited($("name"), NAME_BAD, 10, MSG.nameMax);
+  bindLimited($("org"), ORG_BAD, 50, MSG.orgMax);
+  bindPhone($("phone"), $("err-phone"));
+
+  function setStatus(text, kind){
+    statusEl.textContent = text;
+    statusEl.className = "status" + (kind ? " " + kind : "");
+  }
+  function showNotice(text, warn){
+    notice.textContent = text; notice.hidden = !text;
+    notice.className = "notice" + (warn ? " warn" : "");
+  }
+  function showStamp(ms, animate){
+    $("stampDate").textContent = fmtDate(ms);
+    stamp.classList.add("on");
+    if (animate){ stamp.classList.remove("press"); void stamp.offsetWidth; stamp.classList.add("press"); }
+  }
+  function hideStamp(){ stamp.classList.remove("on", "press"); }
+
+  function readForm(){
+    const s = form.querySelector('input[name="session"]:checked');
+    return {
+      name: $("name").value.trim(),
+      email: $("email").value.trim(),
+      phone: $("phone").value.trim(),
+      org: $("org").value.trim(),
+      session: s ? s.value : "",
+      motive: $("motive").value.trim(),
+      agree: $("agree").checked
+    };
+  }
+  function resetForm(){
+    form.reset();
+    $("count").textContent = "0";
+    clearErrors("err-", formEl);
+  }
+
+  // 새 입력이 시작되면 이전 제출 결과 표시를 걷어내고, 고치는 항목의 오류 표시는 지운다 (연락처는 자체 처리)
+  form.addEventListener("input", e => {
+    hideStamp();
+    if (statusEl.classList.contains("good")) setStatus("");
+    const k = e.target && e.target.name;
+    if (k && k !== "phone" && $("err-" + k)){ $("err-" + k).textContent = ""; e.target.removeAttribute("aria-invalid"); }
+  });
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    const d = readForm();
+    const errs = computeErrors(d, $("email").value, loadAll(), "개인정보 수집·이용에 동의해야 제출할 수 있어요.");
+    if (!applyErrors(errs, "err-", formEl)){ setStatus("빨간색으로 표시된 항목을 확인하세요.", "bad"); return; }
+    const now = Date.now();
+    const list = loadAll();
+    list.push(Object.assign({ id: newId(), submittedAt: now, updatedAt: now }, d));
+    try { saveAll(list); }
+    catch (err) {
+      setStatus(isQuota(err) ? "브라우저 저장 공간이 가득 차서 저장하지 못했어요."
+                             : "저장하지 못했어요. 브라우저가 저장을 막고 있을 수 있어요.", "bad");
+      return;
+    }
+    resetForm();
+    setStatus("신청서를 제출했어요.", "good");
+    showStamp(now, true);
+  });
+
+  /* =====================================================
+     관리자 화면 (CRUD)
+     ===================================================== */
+  const state = { q: "", session: "", sort: "new", page: 1, size: 10, selected: new Set(), editingId: null };
+
+  function ask(title, msg, okLabel){
+    return new Promise(resolve => {
+      const dlg = $("confirm");
+      $("cfTitle").textContent = title; $("cfMsg").textContent = msg; $("cfOk").textContent = okLabel || "삭제";
+      dlg.addEventListener("close", () => resolve(dlg.returnValue === "ok"), { once: true });
+      dlg.returnValue = "cancel";
+      dlg.showModal();
+    });
+  }
+
+  /* ---------- 개인정보 마스킹 (목록 표시용) ---------- */
+  // 이름: 성(첫 글자)만 남기고 나머지를 *로  예) 김철수 → 김**
+  function maskName(n){
+    const a = Array.from(String(n || ""));
+    return a.length <= 1 ? a.join("") : a[0] + "*".repeat(a.length - 1);
+  }
+  // 연락처: 가운데 4자리를 ****로  예) 010-1234-5678 → 010-****-5678
+  function maskPhone(p){
+    const s = String(p || "");
+    if (/^\d{3}-\d{4}-\d{4}$/.test(s)) return s.replace(/^(\d{3})-\d{4}-(\d{4})$/, "$1-****-$2");
+    return s.length > 4 ? "*".repeat(s.length - 4) + s.slice(-4) : s;   // 형식이 다른 기존 데이터 대비
+  }
+
+  /* ---------- 조회 (검색·필터·정렬) ---------- */
+  function query(){
+    const all = loadAll();
+    const q = state.q.trim().toLowerCase();
+    const qd = q.replace(/\D/g, "");
+    const list = all.filter(r => {
+      if (state.session && r.session !== state.session) return false;
+      if (!q) return true;
+      const hay = [r.name, r.email, r.phone, r.org, r.motive].join("\n").toLowerCase();
+      return hay.includes(q) || (qd.length >= 3 && String(r.phone || "").replace(/\D/g, "").includes(qd));
+    });
+    const bySub = (a, b) => (b.submittedAt || 0) - (a.submittedAt || 0);
+    if (state.sort === "old") list.sort((a, b) => -bySub(a, b));
+    else if (state.sort === "name") list.sort((a, b) => String(a.name).localeCompare(String(b.name), "ko") || bySub(a, b));
+    else if (state.sort === "session") list.sort((a, b) => SESSIONS.indexOf(a.session) - SESSIONS.indexOf(b.session) || bySub(a, b));
+    else list.sort(bySub);
+    return { all, list };
+  }
+
+  /* ---------- 렌더 ---------- */
+  function renderStats(all){
+    const box = $("stats"); box.textContent = "";
+    const items = [["", "전체", all.length]].concat(SESSIONS.map(s => [s, s, all.filter(r => r.session === s).length]));
+    items.forEach(([val, label, n]) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "stat"; b.setAttribute("aria-pressed", state.session === val ? "true" : "false");
+      const num = document.createElement("b"); num.textContent = n + "건";
+      const lab = document.createElement("span"); lab.textContent = label;
+      b.appendChild(num); b.appendChild(lab);
+      b.addEventListener("click", () => {
+        state.session = (state.session === val) ? "" : val; state.page = 1;
+        $("fSession").value = state.session; renderAdmin();
+      });
+      box.appendChild(b);
+    });
+  }
+
+  function renderAdmin(){
+    const { all, list } = query();
+    const ids = new Set(all.map(r => r.id));
+    state.selected.forEach(id => { if (!ids.has(id)) state.selected.delete(id); });   // 사라진 항목은 선택에서 제외
+
+    renderStats(all);
+
+    const total = list.length;
+    const pages = Math.max(1, Math.ceil(total / state.size));
+    if (state.page > pages) state.page = pages;
+    const start = (state.page - 1) * state.size;
+    const slice = list.slice(start, start + state.size);
+
+    const tbody = $("rows"); tbody.textContent = "";
+    if (!slice.length){
+      const tr = document.createElement("tr"), td = document.createElement("td");
+      td.colSpan = 9; td.className = "empty";
+      td.textContent = all.length ? "조건에 맞는 신청서가 없어요." : "아직 접수된 신청서가 없어요. ‘신규 등록’으로 추가할 수 있어요.";
+      tr.appendChild(td); tbody.appendChild(tr);
+    }
+    slice.forEach(rec => {
+      const tr = document.createElement("tr");
+      if (state.selected.has(rec.id)) tr.className = "sel";
+
+      const c0 = document.createElement("td"); c0.className = "chk";
+      const cb = document.createElement("input"); cb.type = "checkbox";
+      cb.checked = state.selected.has(rec.id); cb.setAttribute("aria-label", maskName(rec.name) + " 선택");
+      cb.addEventListener("change", () => {
+        if (cb.checked) state.selected.add(rec.id); else state.selected.delete(rec.id);
+        renderAdmin();
+      });
+      c0.appendChild(cb); tr.appendChild(c0);
+
+      const cell = (text, cls) => {
+        const td = document.createElement("td"); if (cls) td.className = cls;
+        td.textContent = text || "—"; tr.appendChild(td); return td;
+      };
+      const dt = cell(fmtDateTime(rec.submittedAt), "nowrap");
+      if (rec.updatedAt && rec.updatedAt !== rec.submittedAt) dt.title = "수정: " + fmtDateTime(rec.updatedAt);
+      cell(maskName(rec.name), "nowrap");
+      cell(rec.email);
+      cell(maskPhone(rec.phone), "nowrap");
+      cell(rec.org);
+      const ts = document.createElement("td");
+      if (rec.session){ const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = rec.session; ts.appendChild(tag); }
+      else ts.textContent = "—";
+      tr.appendChild(ts);
+      const tm = document.createElement("td"); tm.className = "motive";
+      const md = document.createElement("div"); md.textContent = rec.motive || "—"; md.title = rec.motive || "";
+      tm.appendChild(md); tr.appendChild(tm);
+
+      const act = document.createElement("td"); act.className = "act";
+      const edit = document.createElement("button");
+      edit.type = "button"; edit.className = "ghost mini"; edit.textContent = "수정";
+      edit.addEventListener("click", () => openEditor(rec));
+      const del = document.createElement("button");
+      del.type = "button"; del.className = "danger mini"; del.textContent = "삭제";
+      del.addEventListener("click", () => removeRecords([rec.id], "‘" + maskName(rec.name) + "’ 님의 신청서를 삭제할까요? 되돌릴 수 없어요."));
+      act.appendChild(edit); act.appendChild(del); tr.appendChild(act);
+      tbody.appendChild(tr);
+    });
+
+    const selCount = state.selected.size;
+    $("selbar").hidden = !selCount;
+    $("selText").textContent = selCount + "건 선택됨";
+    const inList = list.filter(r => state.selected.has(r.id)).length;
+    $("selAll").checked = total > 0 && inList === total;
+    $("selAll").indeterminate = inList > 0 && inList < total;
+    $("selAll").disabled = total === 0;
+
+    $("pgInfo").textContent = total ? ((start + 1) + "–" + (start + slice.length) + " / 총 " + total + "건") : "0건";
+    $("pgNow").textContent = state.page + " / " + pages;
+    $("pgPrev").disabled = state.page <= 1;
+    $("pgNext").disabled = state.page >= pages;
+    $("btnCsv").disabled = total === 0;
+  }
+
+  /* ---------- 조회 조건 이벤트 ---------- */
+  $("q").addEventListener("input", e => { state.q = e.target.value; state.page = 1; renderAdmin(); });
+  $("fSession").addEventListener("change", e => { state.session = e.target.value; state.page = 1; renderAdmin(); });
+  $("fSort").addEventListener("change", e => { state.sort = e.target.value; state.page = 1; renderAdmin(); });
+  $("pgSize").addEventListener("change", e => { state.size = +e.target.value; state.page = 1; renderAdmin(); });
+  $("pgPrev").addEventListener("click", () => { state.page--; renderAdmin(); });
+  $("pgNext").addEventListener("click", () => { state.page++; renderAdmin(); });
+  $("selAll").addEventListener("change", e => {
+    const { list } = query();
+    if (e.target.checked) list.forEach(r => state.selected.add(r.id));
+    else list.forEach(r => state.selected.delete(r.id));
+    renderAdmin();
+  });
+  $("selClear").addEventListener("click", () => { state.selected.clear(); renderAdmin(); });
+  $("selDelete").addEventListener("click", () =>
+    removeRecords(Array.from(state.selected), "선택한 " + state.selected.size + "건의 신청서를 삭제할까요? 되돌릴 수 없어요."));
+
+  /* ---------- 삭제 ---------- */
+  async function removeRecords(ids, message){
+    if (!ids.length) return;
+    if (!(await ask(ids.length > 1 ? ids.length + "건 삭제" : "신청서 삭제", message, "삭제"))) return;
+    const gone = new Set(ids);
+    try { saveAll(loadAll().filter(r => !gone.has(r.id))); }
+    catch (_) { popup("삭제하지 못했어요. 브라우저가 저장을 막고 있을 수 있어요."); return; }
+    ids.forEach(id => state.selected.delete(id));
+    popup(ids.length + "건을 삭제했어요.", "ok");
+    renderAdmin();
+  }
+
+  /* ---------- 등록/수정 폼 ---------- */
+  const edForm = $("edForm");
+  const adminEl = k => k === "session" ? edForm.querySelector('input[name="session"]') : $("f-" + k);
+  bindLimited($("f-name"), NAME_BAD, 10, MSG.nameMax);
+  bindLimited($("f-org"), ORG_BAD, 50, MSG.orgMax);
+  bindPhone($("f-phone"), $("aerr-phone"));
+  $("f-motive").addEventListener("input", e => { $("acount").textContent = e.target.value.length; });
+
+  function fillEditor(d){
+    clearErrors("aerr-", adminEl);
+    $("f-name").value = d.name || ""; $("f-email").value = d.email || "";
+    $("f-phone").value = d.phone || ""; $("f-org").value = d.org || "";
+    edForm.querySelectorAll('input[name="session"]').forEach(r => { r.checked = r.value === d.session; });
+    $("f-motive").value = d.motive || ""; $("acount").textContent = (d.motive || "").length;
+    $("f-agree").checked = !!d.agree;
+  }
+  function readEditor(){
+    const s = edForm.querySelector('input[name="session"]:checked');
+    return {
+      name: $("f-name").value.trim(),
+      email: $("f-email").value.trim(),
+      phone: $("f-phone").value.trim(),
+      org: $("f-org").value.trim(),
+      session: s ? s.value : "",
+      motive: $("f-motive").value.trim(),
+      agree: $("f-agree").checked
+    };
+  }
+  function openEditor(rec){
+    state.editingId = rec ? rec.id : null;
+    fillEditor(rec || {});
+    $("edTitle").textContent = rec ? "신청 수정" : "신청 등록";
+    $("edMeta").textContent = rec
+      ? "접수 " + fmtDateTime(rec.submittedAt) + (rec.updatedAt && rec.updatedAt !== rec.submittedAt ? " · 수정 " + fmtDateTime(rec.updatedAt) : "")
+      : "관리자가 직접 등록합니다.";
+    $("edSave").textContent = rec ? "수정 내용 저장" : "등록";
+    $("editor").showModal();
+    $("f-name").focus();
+  }
+  $("btnNew").addEventListener("click", () => openEditor(null));
+  $("edCancel").addEventListener("click", () => $("editor").close());
+  edForm.addEventListener("input", e => {
+    const k = e.target && e.target.name;
+    if (k && k !== "phone" && $("aerr-" + k)){ $("aerr-" + k).textContent = ""; e.target.removeAttribute("aria-invalid"); }
+  });
+
+  edForm.addEventListener("submit", e => {
+    e.preventDefault();
+    const d = readEditor();
+    const others = loadAll().filter(r => r.id !== state.editingId);
+    const errs = computeErrors(d, $("f-email").value, others, "신청자의 개인정보 수집·이용 동의가 필요해요.");
+    if (!applyErrors(errs, "aerr-", adminEl)) return;
+    const now = Date.now();
+    const list = loadAll();
+    const isNew = !state.editingId;
+    if (isNew){
+      list.push(Object.assign({ id: newId(), submittedAt: now, updatedAt: now }, d));
+    } else {
+      const i = list.findIndex(r => r.id === state.editingId);
+      if (i < 0){ $("editor").close(); popup("수정하려던 신청서가 이미 삭제됐어요."); renderAdmin(); return; }
+      list[i] = Object.assign({}, list[i], d, { updatedAt: now });
+    }
+    try { saveAll(list); }
+    catch (err) {
+      popup(isQuota(err) ? "브라우저 저장 공간이 가득 차서 저장하지 못했어요." : "저장하지 못했어요. 브라우저가 저장을 막고 있을 수 있어요.");
+      return;
+    }
+    $("editor").close();
+    popup(isNew ? "신청서를 등록했어요." : "신청 내용을 수정했어요.", "ok");
+    renderAdmin();
+  });
+
+  /* ---------- CSV (현재 조회 결과) ---------- */
+  function csvCell(v){
+    let s = v == null ? "" : String(v);
+    if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;       // 엑셀 수식 주입 방지
+    return '"' + s.replace(/"/g, '""') + '"';
+  }
+  // 버튼 → 마스킹 여부 선택 팝업 → 선택에 따라 저장. (localStorage에는 항상 원본이 들어 있고, 마스킹은 파일을 만들 때만 적용)
+  $("btnCsv").addEventListener("click", () => {
+    const n = query().list.length;
+    if (!n) return;
+    $("csvMeta").textContent = "현재 조회 결과 " + n + "건을 내려받습니다.";
+    $("csvForm").querySelector('input[name="csvMask"][value="masked"]').checked = true;   // 기본값은 마스킹
+    $("csvDlg").showModal();
+    $("csvOk").focus();
+  });
+  $("csvCancel").addEventListener("click", () => $("csvDlg").close());
+  $("csvForm").addEventListener("submit", e => {
+    e.preventDefault();
+    const masked = $("csvForm").querySelector('input[name="csvMask"]:checked').value === "masked";
+    $("csvDlg").close();
+    exportCsv(masked);
+  });
+
+  function exportCsv(masked){
+    const { list } = query();
+    const head = ["접수일시", "이름", "이메일", "연락처", "소속", "참가 일정", "신청 동기"];
+    const lines = [head.map(csvCell).join(",")].concat(list.map(r =>
+      [fmtDateTime(r.submittedAt), masked ? maskName(r.name) : r.name, r.email,
+       masked ? maskPhone(r.phone) : r.phone, r.org, r.session, r.motive].map(csvCell).join(",")));
+    const blob = new Blob(["﻿" + lines.join("\r\n")], { type: "text/csv;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a"), t = new Date();
+    a.href = url;
+    a.download = "신청목록_" + t.getFullYear() + pad(t.getMonth()+1) + pad(t.getDate()) + (masked ? "_마스킹" : "_원본") + ".csv";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    popup(list.length + "건을 내려받았어요. (" + (masked ? "마스킹" : "원본") + ")", "ok");
+  }
+
+  /* =====================================================
+     화면 전환 (#admin ↔ 신청서) · 시작
+     ===================================================== */
+  /* ---------- 관리자 비밀번호 확인 ---------- */
+  // 주의: 이 확인은 화면을 가리는 용도일 뿐 보안 장치가 아니다. 비밀번호 해시와 데이터가 모두 브라우저에 있다.
+  const ADMIN_SALT = "participant-admin:v1";
+  const ADMIN_HASH = "2eb1f343f6ec310d8d8a3860688106f20ae8679bd7f64fdff6adb7c34cd711e7";   // PBKDF2-SHA256(비밀번호, ADMIN_SALT, 100000회) 16진수
+  const AUTH_KEY = "participant-admin-auth:v1";
+  const MAX_FAILS = 5, LOCK_SEC = 30;
+  let authMemory = false, fails = 0, lockTimer = null;
+
+  function isAuthed(){
+    if (authMemory) return true;
+    try { return sessionStorage.getItem(AUTH_KEY) === "1"; } catch (_) { return false; }
+  }
+  function setAuthed(on){
+    authMemory = on;
+    try { if (on) sessionStorage.setItem(AUTH_KEY, "1"); else sessionStorage.removeItem(AUTH_KEY); } catch (_) {}
+  }
+  async function hashPassword(pw){
+    if (!(window.crypto && crypto.subtle)) throw new Error("no-subtle");
+    const enc = new TextEncoder();
+    const key = await crypto.subtle.importKey("raw", enc.encode(pw), "PBKDF2", false, ["deriveBits"]);
+    const bits = await crypto.subtle.deriveBits(
+      { name: "PBKDF2", hash: "SHA-256", salt: enc.encode(ADMIN_SALT), iterations: 100000 }, key, 256);
+    return Array.from(new Uint8Array(bits)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+  function startLock(){
+    let left = LOCK_SEC;
+    $("gatePw").disabled = true; $("gateBtn").disabled = true;
+    const tick = () => {
+      if (left <= 0){
+        clearInterval(lockTimer); lockTimer = null;
+        $("gatePw").disabled = false; $("gateBtn").disabled = false; $("gateErr").textContent = "";
+        return;
+      }
+      $("gateErr").textContent = "비밀번호를 " + MAX_FAILS + "번 틀렸어요. " + left + "초 뒤에 다시 시도하세요.";
+      left--;
+    };
+    clearInterval(lockTimer); tick(); lockTimer = setInterval(tick, 1000);
+  }
+  $("gateForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    if (lockTimer) return;
+    const pw = $("gatePw").value;
+    if (!pw){ $("gateErr").textContent = "비밀번호를 입력하세요."; $("gatePw").focus(); return; }
+    $("gateBtn").disabled = true;
+    let ok = false;
+    try { ok = (await hashPassword(pw)) === ADMIN_HASH; }
+    catch (_) {
+      $("gateErr").textContent = "이 환경에서는 비밀번호를 확인할 수 없어요. HTTPS 주소로 열어 주세요.";
+      $("gateBtn").disabled = false; return;
+    }
+    $("gatePw").value = "";
+    if (ok){ fails = 0; $("gateErr").textContent = ""; $("gateBtn").disabled = false; setAuthed(true); route(); return; }
+    fails++;
+    if (fails >= MAX_FAILS){ fails = 0; startLock(); return; }
+    $("gateErr").textContent = "비밀번호가 올바르지 않아요. (" + fails + "/" + MAX_FAILS + ")";
+    $("gateBtn").disabled = false; $("gatePw").focus();
+  });
+  $("btnLogout").addEventListener("click", () => {
+    setAuthed(false); state.selected.clear();
+    location.hash = "#apply"; route();
+  });
+
+  const isAdminRoute = () => location.hash === "#admin";
+  function route(){
+    const admin = isAdminRoute(), authed = admin && isAuthed();
+    $("applyView").hidden = admin;
+    $("gateView").hidden = !(admin && !authed);
+    $("adminView").hidden = !authed;          // 인증 전에는 목록을 렌더링하지 않아 DOM에도 데이터가 없다
+    document.title = !admin ? "참가 신청서" : authed ? "신청 관리 · 관리자" : "관리자 확인";
+    if (authed) renderAdmin();
+    else if (admin) setTimeout(() => { try { if (!$("gatePw").disabled) $("gatePw").focus(); } catch (_) {} }, 0);
+    try { window.scrollTo(0, 0); } catch (_) {}
+  }
+  window.addEventListener("hashchange", route);
+  window.addEventListener("storage", e => {   // 다른 탭의 변경 반영
+    if (isAdminRoute() && isAuthed() && (e.key === null || e.key === KEY)) renderAdmin();
+  });
+
+  if (!probeStorage()){
+    useMemory = true;
+    showNotice("이 환경에서는 브라우저 저장소를 쓸 수 없어요. 신청 내역은 이 탭을 닫거나 새로고침하면 사라집니다.", true);
+    $("adminNotice").textContent = "이 환경에서는 브라우저 저장소를 쓸 수 없어요. 이 탭에서 만든 데이터만 보이고, 새로고침하면 사라집니다.";
+    $("adminNotice").hidden = false;
+  }
+  route();
+})();
+</script>
+</body>
+</html>

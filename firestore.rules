@@ -1,0 +1,68 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Default deny all access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        (request.auth.token.email == 'seungyeop2002@gmail.com' && request.auth.token.email_verified == true) ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    function isValidApplication(data) {
+      return data.keys().hasAll(['name', 'email', 'session', 'motive', 'agree', 'submittedAt', 'updatedAt']) &&
+        data.keys().hasOnly(['id', 'name', 'email', 'phone', 'org', 'session', 'motive', 'agree', 'submittedAt', 'updatedAt']) &&
+        data.name is string && data.name.size() > 0 && data.name.size() <= 10 &&
+        data.email is string && data.email.size() > 0 && data.email.size() <= 120 &&
+        (!('phone' in data) || (data.phone is string && data.phone.size() <= 13)) &&
+        (!('org' in data) || (data.org is string && data.org.size() <= 50)) &&
+        data.session is string && (data.session == '평일 저녁' || data.session == '토요일 오전' || data.session == '토요일 오후') &&
+        data.motive is string && data.motive.size() >= 10 && data.motive.size() <= 1000 &&
+        data.agree == true &&
+        data.submittedAt is number &&
+        data.updatedAt is number;
+    }
+
+    match /applications/{applicationId} {
+      // PII Protection: Only verified administrator can view or query the list of applications
+      allow get, list: if isAdmin();
+
+      // Anyone can submit a valid application form
+      allow create: if isValidId(applicationId) && isValidApplication(incoming());
+
+      // Only administrators can edit or delete participant applications
+      allow update: if isValidId(applicationId) && isAdmin() && isValidApplication(incoming());
+      allow delete: if isValidId(applicationId) && isAdmin();
+    }
+
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    match /settings/{settingId} {
+      allow read, write: if isAdmin();
+    }
+  }
+}

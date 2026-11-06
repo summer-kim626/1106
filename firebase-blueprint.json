@@ -1,0 +1,94 @@
+{
+  "entities": {
+    "Application": {
+      "title": "Application",
+      "description": "Participant application record for sessions",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Unique identifier for the application"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "Applicant full name"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 120,
+          "format": "email",
+          "description": "Applicant contact email"
+        },
+        "phone": {
+          "type": "string",
+          "maxLength": 13,
+          "description": "Applicant phone number"
+        },
+        "org": {
+          "type": "string",
+          "maxLength": 50,
+          "description": "Applicant organization or affiliation"
+        },
+        "session": {
+          "type": "string",
+          "enum": ["평일 저녁", "토요일 오전", "토요일 오후"],
+          "description": "Selected session schedule"
+        },
+        "motive": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 1000,
+          "description": "Application motive or statement of intent"
+        },
+        "agree": {
+          "type": "boolean",
+          "description": "Agreement to personal info collection"
+        },
+        "submittedAt": {
+          "type": "number",
+          "description": "Submission timestamp in milliseconds"
+        },
+        "updatedAt": {
+          "type": "number",
+          "description": "Last update timestamp in milliseconds"
+        }
+      },
+      "required": ["name", "email", "session", "motive", "agree", "submittedAt", "updatedAt"]
+    },
+    "AppSetting": {
+      "title": "AppSetting",
+      "description": "Application settings including Google Sheets integration config",
+      "type": "object",
+      "properties": {
+        "spreadsheetId": {
+          "type": "string",
+          "description": "Google Sheets spreadsheet ID"
+        },
+        "spreadsheetUrl": {
+          "type": "string",
+          "description": "Google Sheets spreadsheet web URL"
+        },
+        "autoSync": {
+          "type": "boolean",
+          "description": "Whether new applications should auto-sync to Sheets"
+        },
+        "updatedAt": {
+          "type": "number",
+          "description": "Last settings update timestamp"
+        }
+      }
+    }
+  },
+  "firestore": {
+    "/applications/{applicationId}": {
+      "schema": "Application",
+      "description": "Collection of submitted participant applications"
+    },
+    "/settings/{settingId}": {
+      "schema": "AppSetting",
+      "description": "Application configuration settings (Google Sheets integration)"
+    }
+  }
+}
